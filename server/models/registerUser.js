@@ -1,19 +1,11 @@
 class User {
-  constructor(userid, firstname, lastname, username, password) {
-    this.userid = userid;
+  constructor(firstname, lastname, username, password) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.username = username;
     this.password = password;
   }
 
-  getUserid() {
-    return this.userid;
-  }
-
-  setUserid(userid) {
-    this.userid = userid;
-  }
 
   getFirstname() {
     return this.firstname;
@@ -48,12 +40,14 @@ class User {
   }
 }
 
-const user2 = new User();
+const user1 = new User();
 
-document.getElementById("login").addEventListener("submit", printloginUser);
-function printloginUser(e) {
-  e.preventDefault();
-  user2.setUsername(document.getElementById("loginuname").value);
-  user2.setPassword(document.getElementById("loginpaw").value);
-  console.log(user2);
-}
+// document.getElementById('register').addEventListener('submit',printregisterUser);
+//     function printregisterUser(e) {
+//     e.preventDefault();
+//     user1.setFirstname(document.getElementById("regfname").value);
+//     user1.setLastname(document.getElementById("reglname").value);
+//     user1.setUsername(document.getElementById("reguname").value);
+//     user1.setPassword(document.getElementById("regpaw").value);
+//     console.log(user1);   
+// }
