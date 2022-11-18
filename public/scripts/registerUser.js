@@ -42,12 +42,12 @@ class User {
 
 const user1 = new User();
 
-// document.getElementById('register').addEventListener('submit',printregisterUser);
-//     function printregisterUser(e) {
-//     e.preventDefault();
-//     user1.setFirstname(document.getElementById("regfname").value);
-//     user1.setLastname(document.getElementById("reglname").value);
-//     user1.setUsername(document.getElementById("reguname").value);
-//     user1.setPassword(document.getElementById("regpaw").value);
-//     console.log(user1);   
-// }
+document.getElementById('register').addEventListener('submit',printregisterUser);
+    function printregisterUser(e) {
+    e.preventDefault();
+    user1.setFirstname(document.getElementById("regfname").value);
+    user1.setLastname(document.getElementById("reglname").value);
+    user1.setUsername(document.getElementById("reguname").value);
+    user1.setPassword(document.getElementById("regpaw").value);
+    console.log(user1);   
+}

@@ -1,8 +1,7 @@
 const express = require('express');
 const app = express();
 
-const loginUserRoutes = require('./server/routes/loginUser');
-const registerUserRoutes = require('./server/routes/registerUser');
+const userRoutes = require('./server/routes/user');
 const noteRoutes = require('./server/routes/note');
 
 app.use(express.json());
@@ -15,8 +14,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use("/loginUsers", loginUserRoutes);
-app.use("/registerUsers", registerUserRoutes);
+app.use("/users", userRoutes);
 app.use("/note", noteRoutes);
 
 const PORT = process.env.PORT || 3000;
