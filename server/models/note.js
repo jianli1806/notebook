@@ -1,22 +1,77 @@
-const notes = [
-    {
-      noteId: 12345,
-      notecontent: "fdsafasdfsadf"
-    },
-    {
-      userId: 55555,
-      notecontent: "5435345345"
-    },
-    {
-      userId: 23412,
-      notecontent: "ffdssdfsfff"
-    }
-  ];
+const con = require("./db_connect");
+
+// Table Creation 
+async function createTable() {
+  let sql=`CREATE TABLE IF NOT EXISTS notes (
+    noteID INT NOT NULL AUTO_INCREMENT,
+    notecontent VARCHAR(255),
+    userID INT NOT NULL,
+    CONSTRAINT notePK PRIMARY KEY(noteID),
+    CONSTRAINT noteFK FOREIGN KEY(noteID) references users(userID)
+  ); `
+  await con.query(sql);
+}
+createTable();
   
-  function getAllNotes() {
-    return notes;
-  }
+// grabbing all notes in database
+async function getAllNotes() {
+  const sql = `SELECT * FROM notes;`;
+  let notes = await con.query(sql);
+  console.log(notes)
+}
+
+// add notes
+async function add(note) {
+
+  const sql = `INSERT INTO notes (notecontent)
+    VALUES ("${note.notecontent}");
+  `
+  await con.query(sql);
+  return await read(note);
+}
+
+// Read Note
+async function read(note) { 
+  let cNote = await getNote(note); 
   
-  
-  
-  module.exports = { getAllNotes };
+  if(!cNote[0]) throw Error("notecontent not found");
+
+  return cUser[0];
+}
+
+// Update Note function
+async function editNote(note) {
+  let sql = `UPDATE notes 
+    SET notecontent = "${note.notecontent}"
+    WHERE noteID = ${note=noteID}
+  `;
+
+  await con.query(sql);
+  let updatedNote = await getNote(note);
+  return updatedNote[0];
+}
+
+// Delete User function
+async function deleteNote(note) {
+  let sql = `DELETE FROM notes
+    WHERE noteID = ${note.noteID}
+  `
+  await con.query(sql);
+}
+
+// Useful Functions
+async function getNote(note) {
+  let sql;
+
+  if(note.noteID) {
+    sql = `
+      SELECT * FROM notes
+       WHERE noteID = ${note.noteID}
+    `
+  } 
+  return await con.query(sql);  
+}
+
+
+
+module.exports = { getAllNotes, add, read, editNote, deleteNote};
