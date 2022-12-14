@@ -14,8 +14,8 @@ async function createTable() {
 createTable();
   
 // grabbing all notes in database
-async function getAllNotes() {
-  const sql = `SELECT * FROM notes;`;
+async function getAllNotes(note) {
+  const sql = `SELECT * FROM notes where notes.userID = ${note.userID};`;
   let notes = await con.query(sql);
   console.log(notes)
 }
@@ -24,7 +24,7 @@ async function getAllNotes() {
 async function add(note) {
 
   const sql = `INSERT INTO notes (notecontent)
-    VALUES ("${note.notecontent}");
+    VALUES ("${note.notecontent}") where notes.userID = ${note.userID};
   `
   await con.query(sql);
   return await read(note);
@@ -32,11 +32,11 @@ async function add(note) {
 
 // Read Note
 async function read(note) { 
-  let cNote = await getNote(note); 
+  let cNote = await getAllNotes(note); 
   
   if(!cNote[0]) throw Error("notecontent not found");
 
-  return cUser[0];
+  return cNote[0];
 }
 
 // Update Note function
@@ -60,17 +60,17 @@ async function deleteNote(note) {
 }
 
 // Useful Functions
-async function getNote(note) {
-  let sql;
+// async function getNote(note) {
+//   let sql;
 
-  if(note.noteID) {
-    sql = `
-      SELECT * FROM notes
-       WHERE noteID = ${note.noteID}
-    `
-  } 
-  return await con.query(sql);  
-}
+//   if(note.noteID) {
+//     sql = `
+//       SELECT * FROM notes
+//        WHERE noteID = ${note.noteID}
+//     `
+//   } 
+//   return await con.query(sql);  
+// }
 
 
 

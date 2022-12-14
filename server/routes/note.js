@@ -5,8 +5,8 @@ const router = express.Router();
 router
   .get('/', async (req, res) => {
     try {
-      const notes = await Note.getAllNotes();
-      res.send(notes);
+      const notes = await Note.read(req.body);
+      res.send({...notes});
     } catch(err) {
       res.status(401).send({message: err.message});
     }
